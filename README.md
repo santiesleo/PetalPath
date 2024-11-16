@@ -27,10 +27,3 @@ El juego requiere dos imágenes en la carpeta `src/`:
 - `flower2.gif`: Imagen para las flores.
 
 Asegúrate de que estas imágenes existan y estén en el formato `.gif` compatible con `turtle`.
-
-## Ejecución
-
-Para ejecutar el juego:
-
-```bash
-python butterfly_game.py
