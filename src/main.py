@@ -49,6 +49,21 @@ class ScoreBoard(turtle.Turtle):
         """Incrementa el puntaje en 1 y muestra el nuevo valor en pantalla."""
         self.score += 1
         self.update_score()
+        
+        # Verificar condición de victoria
+        if self.score >= 20:
+            self.show_win_message()
+            
+    def show_win_message(self):
+        """Muestra el mensaje de victoria"""
+        self.clear()
+        self.goto(0, 0)  # Centra el mensaje
+        self.write("¡FELICITACIONES!\n¡Has ganado el juego!", 
+                align="center", 
+                font=("Arial", 36, "bold"))
+        window.update()  # Asegura que el mensaje se muestre
+        turtle.time.sleep(2)  # Pausa de 3 segundos
+        window.bye()  # Cierra la ventana después de la pausa
 
 class Butterfly(turtle.Turtle):
     """
@@ -75,8 +90,8 @@ class Butterfly(turtle.Turtle):
     def update_matrix_position(self):
         """Actualiza la posición de la mariposa en la matriz, eliminando la anterior y estableciendo la nueva."""
         global game_matrix
-        game_matrix = np.where(game_matrix == 1, 0, game_matrix)  # Borra la posición anterior
-        game_matrix[self.grid_y][self.grid_x] = 1  # Establece la nueva posición
+        game_matrix = np.where(game_matrix == 1, 0, game_matrix)
+        game_matrix[self.grid_y][self.grid_x] = 1
 
     def move_up(self):
         """Mueve la mariposa una celda hacia arriba, si no sale de la matriz."""
@@ -137,7 +152,7 @@ class Flower(turtle.Turtle):
     def respawn(self):
         """Reposiciona la flor en una celda vacía de la matriz de juego."""
         global game_matrix
-        game_matrix = np.where(game_matrix == 2, 0, game_matrix)  # Borra posición anterior de la flor
+        game_matrix = np.where(game_matrix == 2, 0, game_matrix)
         
         # Encuentra una posición vacía aleatoria en la matriz
         while True:
@@ -171,12 +186,11 @@ flowers = []
 def initialize_game():
     """Inicializa el juego creando instancias de flores y agregándolas a la lista."""
     global flowers
-    for _ in range(5):  # Crea 5 flores
+    for _ in range(5):
         new_flower = Flower()
         flowers.append(new_flower)
 
 def print_matrix():
-    """Imprime la matriz de juego en la consola para depuración."""
     print("\nGame Matrix:")
     print(game_matrix)
 
@@ -193,14 +207,15 @@ window.onkey(butterfly.move_left, "Left")
 window.onkey(butterfly.move_right, "Right")
 
 # Bucle principal del juego
-while True:
-    window.update()  # Actualiza la ventana para mostrar cambios
+game_active = True
+while game_active:
+    window.update()
 
     # Verifica colisiones entre la mariposa y las flores
     for flower in flowers:
         if check_collision(butterfly, flower):
-            flower.respawn()  # Reposiciona la flor
-            scoreboard.increase_score()  # Aumenta el puntaje
-            print_matrix()  # Imprime la matriz después de cada movimiento
+            flower.respawn()
+            scoreboard.increase_score()
+            print_matrix()
 
-    turtle.delay(10)  # Controla la velocidad del bucle
+    turtle.delay(10)
