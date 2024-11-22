@@ -6,7 +6,7 @@ import numpy as np
 window = turtle.Screen()
 window.bgcolor(1, 1, 1)  # Fondo blanco
 window.title("Butterfly Game")  # Título de la ventana
-window.setup(800, 800)  # Tamaño de la ventana
+window.setup(600, 600)  # Tamaño de la ventana
 
 # Registrar formas de imagen para los objetos del juego
 turtle.register_shape('src/butterfly2.gif')
@@ -37,7 +37,7 @@ class ScoreBoard(turtle.Turtle):
         self.color("black")
         self.hideturtle()
         self.penup()
-        self.goto(0, 350)
+        self.goto(0, 260)
         self.update_score()
 
     def update_score(self):
@@ -97,8 +97,8 @@ class Butterfly(turtle.Turtle):
         """Mueve la mariposa una celda hacia arriba, si no sale de la matriz."""
         if self.grid_y > 0:
             self.grid_y -= 1
-            new_y = self.ycor() + 40
-            if new_y < 380:
+            new_y = self.ycor() + 30
+            if new_y < 280:
                 self.goto(self.xcor(), new_y)
                 self.update_matrix_position()
 
@@ -106,8 +106,8 @@ class Butterfly(turtle.Turtle):
         """Mueve la mariposa una celda hacia abajo, si no sale de la matriz."""
         if self.grid_y < GRID_SIZE - 1:
             self.grid_y += 1
-            new_y = self.ycor() - 40
-            if new_y > -380:
+            new_y = self.ycor() - 30
+            if new_y > -280:
                 self.goto(self.xcor(), new_y)
                 self.update_matrix_position()
 
@@ -115,8 +115,8 @@ class Butterfly(turtle.Turtle):
         """Mueve la mariposa una celda hacia la izquierda, si no sale de la matriz."""
         if self.grid_x > 0:
             self.grid_x -= 1
-            new_x = self.xcor() - 40
-            if new_x > -380:
+            new_x = self.xcor() - 30
+            if new_x > -280:
                 self.goto(new_x, self.ycor())
                 self.update_matrix_position()
 
@@ -124,8 +124,8 @@ class Butterfly(turtle.Turtle):
         """Mueve la mariposa una celda hacia la derecha, si no sale de la matriz."""
         if self.grid_x < GRID_SIZE - 1:
             self.grid_x += 1
-            new_x = self.xcor() + 40
-            if new_x < 380:
+            new_x = self.xcor() + 30
+            if new_x < 280:
                 self.goto(new_x, self.ycor())
                 self.update_matrix_position()
 
@@ -163,8 +163,8 @@ class Flower(turtle.Turtle):
         
         # Actualiza la matriz y la posición en la pantalla
         game_matrix[self.grid_y][self.grid_x] = 2
-        screen_x = (self.grid_x - GRID_SIZE // 2) * 40
-        screen_y = (GRID_SIZE // 2 - self.grid_y) * 40
+        screen_x = (self.grid_x - GRID_SIZE // 2) * 30
+        screen_y = (GRID_SIZE // 2 - self.grid_y) * 30
         self.goto(screen_x, screen_y)
 
 def check_collision(butterfly, flower):
